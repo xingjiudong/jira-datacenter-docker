@@ -49,7 +49,7 @@ services:
       - ./jira-home-node1:/var/atlassian/application-data/jira
       - ./jira-shared-home:/var/atlassian/jira-shared-home
     ports:
-      - 8080:8080
+      - 8081:8080
     environment:
       - CATALINA_CONTEXT_PATH=/jd
       - CATALINA_OPTS="-Datlassian.cluster.scale=true -DjvmRoute=node2"
