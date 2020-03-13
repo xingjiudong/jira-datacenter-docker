@@ -3,7 +3,7 @@ networks:
   jira-network:
 services:
   node1:
-    image: atlassian/jira-software:8.5.0
+    image: atlassian/jira-software:8.5.3
     container_name: node1
     restart: unless-stopped
     networks:
@@ -40,7 +40,7 @@ services:
       interval: 5m
       timeout: 10s
   node2:
-    image: atlassian/jira-software:8.5.0
+    image: atlassian/jira-software:8.5.3
     container_name: node2
     restart: unless-stopped
     networks:
