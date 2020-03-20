@@ -14,8 +14,7 @@ services:
     ports:
       - 8080:8080
     environment:
-      - CATALINA_CONTEXT_PATH=/jd
-      - CATALINA_OPTS="-Datlassian.cluster.scale=true -DjvmRoute=node1"
+      - CATALINA_CONTEXT_PATH=/jira
       - ATL_JDBC_URL=jdbc:postgresql://database:5432/jiradb
       - ATL_JDBC_USER=postgres
       - ATL_JDBC_PASSWORD=1234
@@ -23,14 +22,7 @@ services:
       - ATL_DB_TYPE=postgres72
       # Data Center configuration
       - CLUSTERED=true
-      - JIRA_NODE_ID=node1
-      - EHCACHE_LISTENER_HOSTNAME=node1
-      - EHCACHE_LISTENER_PORT=40001
-      - EHCACHE_OBJECT_PORT=40011
-      - EHCACHE_PEER_DISCOVERY=default      
-      # Home Directories
-      - JIRA_HOME=/var/atlassian/application-data/jira
-      - JIRA_SHARED_HOME=/var/atlassian/jira-shared-home
+      - JIRA_NODE_ID=node1    
     depends_on:
       - database
     links:
@@ -51,8 +43,7 @@ services:
     ports:
       - 8081:8080
     environment:
-      - CATALINA_CONTEXT_PATH=/jd
-      - CATALINA_OPTS="-Datlassian.cluster.scale=true -DjvmRoute=node2"
+      - CATALINA_CONTEXT_PATH=/jira
       - ATL_JDBC_URL=jdbc:postgresql://database:5432/jiradb
       - ATL_JDBC_USER=postgres
       - ATL_JDBC_PASSWORD=1234
@@ -61,13 +52,6 @@ services:
       # Data Center configuration
       - CLUSTERED=true
       - JIRA_NODE_ID=node2
-      - EHCACHE_LISTENER_HOSTNAME=node2
-      - EHCACHE_LISTENER_PORT=40001
-      - EHCACHE_OBJECT_PORT=40011
-      - EHCACHE_PEER_DISCOVERY=default      
-      # Home Directories
-      - JIRA_HOME=/var/atlassian/application-data/jira
-      - JIRA_SHARED_HOME=/var/atlassian/jira-shared-home
     depends_on:
       - database
     links:
