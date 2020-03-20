@@ -38,7 +38,7 @@ services:
     networks:
       - jira-network
     volumes:
-      - ./jira-home-node1:/var/atlassian/application-data/jira
+      - ./jira-home-node2:/var/atlassian/application-data/jira
       - ./jira-shared-home:/var/atlassian/application-data/jira/shared
     ports:
       - 8081:8080
