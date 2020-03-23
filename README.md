@@ -1,1 +1,0 @@
-jira-datacenter-docker
