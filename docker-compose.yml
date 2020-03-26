@@ -1,6 +1,10 @@
 version: '3'
 networks:
   jira-network:
+volumes:
+  jira-home-node1:
+  jira-home-node2:
+  jira-shared-home:
 services:
   node1:
     image: atlassian/jira-software:8.5.3
@@ -9,8 +13,8 @@ services:
     networks:
       - jira-network
     volumes:
-      - ./jira-home-node1:/var/atlassian/application-data/jira
-      - ./jira-shared-home:/var/atlassian/application-data/jira/shared
+      - jira-home-node1:/var/atlassian/application-data/jira
+      - jira-shared-home:/var/atlassian/application-data/jira/shared
     ports:
       - 8080:8080
     environment:
@@ -22,7 +26,15 @@ services:
       - ATL_DB_TYPE=postgres72
       # Data Center configuration
       - CLUSTERED=true
-      - JIRA_NODE_ID=node1    
+      - JIRA_NODE_ID=node1
+      - EHCACHE_LISTENER_HOSTNAME=jira-cluster-850-node1
+      - EHCACHE_LISTENER_PORT=40001
+      - EHCACHE_OBJECT_PORT=40011
+      - EHCACHE_PEER_DISCOVERY=default      
+      #- EHCACHE_MULTICAST_ADDRESS=230.0.0.1
+      #- EHCACHE_MULTICAST_PORT=4446
+      #- EHCACHE_MULTICAST_TIMETOLIVE=32
+      #- EHCACHE_MULTICAST_HOSTNAME=jira-cluster-850-node1
     depends_on:
       - database
     links:
@@ -38,8 +50,8 @@ services:
     networks:
       - jira-network
     volumes:
-      - ./jira-home-node2:/var/atlassian/application-data/jira
-      - ./jira-shared-home:/var/atlassian/application-data/jira/shared
+      - jira-home-node2:/var/atlassian/application-data/jira
+      - jira-shared-home:/var/atlassian/application-data/jira/shared
     ports:
       - 8081:8080
     environment:
@@ -52,6 +64,14 @@ services:
       # Data Center configuration
       - CLUSTERED=true
       - JIRA_NODE_ID=node2
+      - EHCACHE_LISTENER_HOSTNAME=jira-cluster-850-node1
+      - EHCACHE_LISTENER_PORT=40001
+      - EHCACHE_OBJECT_PORT=40011
+      - EHCACHE_PEER_DISCOVERY=default      
+      #- EHCACHE_MULTICAST_ADDRESS=230.0.0.1
+      #- EHCACHE_MULTICAST_PORT=4446
+      #- EHCACHE_MULTICAST_TIMETOLIVE=32
+      #- EHCACHE_MULTICAST_HOSTNAME=jira-cluster-850-node1
     depends_on:
       - database
     links:
